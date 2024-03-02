@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
 import { getChatGPTResponse } from "./getAIReposnse";
 
-
-export  const handleContractData = (req: Request , res: Response) => {
+export const handleContractData = (req: Request, res: Response) => {
     res.send("Data avi gayo che");
     console.log(req.body)
     const prompt = `
@@ -15,12 +14,15 @@ ${req.body.genreal_info}
 Make the contract according to these conditons: 
 
 ${req.body.prompt}
+
+Give proper format using just simple html and a4 size
 `
     getChatGPTResponse(prompt)
-    .then((response) => {
-        console.log('ChatGPT response:', response);
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
+        .then((htmlResponse) => {
+            // console.log(response);
+            res.send(htmlResponse)
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 }
