@@ -1,31 +1,24 @@
-// import axios from 'axios';
-import { OpenAI } from "openai";
-import dotenv from "dotenv"
-dotenv.config();
 
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API,
-    organization: process.env["OPENAI_ORG"]
-});
+import { Groq } from "groq-sdk";
 
-export const getChatGPTResponse = async (prompt: string) => {
-
+export const getGroqResponse = async (prompt: string) => {
+    const groq = new Groq({
+        apiKey: process.env.GROQ_API_KEY
+    });
 
     try {
-        const response = await openai.chat.completions.create({
-            // model: "text-davinci-003",
-            model: "gpt-3.5-turbo",
+        const response = await groq.chat.completions.create({
+            model: "mixtral-8x7b-32768",  // or "llama2-70b-4096"
             messages: [{ role: "user", content: prompt }],
             max_tokens: 1024,
             temperature: 0.5,
         });
-        return response.choices[0].message.content
+        return response.choices[0].message.content;
     } catch (error) {
-        console.error('Error getting response from ChatGPT:', error);
+        console.error('Error getting response from Groq:', error);
         throw error;
     }
-    
-}
+};
 
 // Example usage:
 

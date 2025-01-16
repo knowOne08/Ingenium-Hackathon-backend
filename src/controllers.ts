@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getChatGPTResponse } from "./getAIReposnse";
+import { getGroqResponse } from "./getAIReposnse";
 // import { renderToStream } from "@react-pdf/renderer";
 // import { MyPDF } from "./utils";
 
@@ -22,7 +22,7 @@ export const handleContractData = (req: Request, res: Response) => {
 
     Properly format this with bold, italics, titles etc.. wherever required using just simple html div
     `
-    getChatGPTResponse(prompt)
+    getGroqResponse(prompt)
         .then(async (htmlResponse) => {
 
             // res.set({
